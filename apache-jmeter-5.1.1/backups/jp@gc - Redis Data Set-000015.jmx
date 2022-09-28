@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="测试计划" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="用户定义的变量" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="线程组" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <kg.apc.jmeter.config.redis.RedisDataSet guiclass="TestBeanGUI" testclass="kg.apc.jmeter.config.redis.RedisDataSet" testname="jp@gc - Redis Data Set" enabled="true">
+          <stringProp name="redisKey"> ANONYM_COMPLAIN_CAPTCHA_PREFIX_zxx19950128</stringProp>
+          <stringProp name="variableNames">CAPTCHA</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <intProp name="getMode">0</intProp>
+          <stringProp name="host">192.168.2.32</stringProp>
+          <stringProp name="port">7010</stringProp>
+          <stringProp name="timeout">2000</stringProp>
+          <stringProp name="password"></stringProp>
+          <stringProp name="database">0</stringProp>
+          <intProp name="minIdle">0</intProp>
+          <intProp name="maxIdle">30</intProp>
+          <intProp name="maxActive">20</intProp>
+          <longProp name="maxWait">30000</longProp>
+          <intProp name="whenExhaustedAction">2</intProp>
+          <boolProp name="testOnBorrow">false</boolProp>
+          <boolProp name="testOnReturn">false</boolProp>
+          <boolProp name="testWhileIdle">false</boolProp>
+          <longProp name="timeBetweenEvictionRunsMillis">30000</longProp>
+          <intProp name="numTestsPerEvictionRun">0</intProp>
+          <longProp name="minEvictableIdleTimeMillis">60000</longProp>
+          <longProp name="softMinEvictableIdleTimeMillis">60000</longProp>
+        </kg.apc.jmeter.config.redis.RedisDataSet>
+        <hashTree/>
+        <BeanShellSampler guiclass="BeanShellSamplerGui" testclass="BeanShellSampler" testname="BeanShell 取样器" enabled="true">
+          <stringProp name="BeanShellSampler.query">import redis.clients.jedis.Jedis;
+import org.apache.commons.lang3.StringUtils;
+
+String host = &quot;192.168.2.32&quot;;    //服务器地址
+int port = 7010;                //端口号
+String password = &quot;&quot;;            //redis密码
+int index = 0;                    //redis db
+String key = &quot; COMPLAIN_PROGRESS_CAPTCHA_PREFIX_zxx19950128:${CAPTCHA}&quot;;
+String value = &quot;{\&quot;avatarUrl\&quot;:\&quot;https://192.168.2.32:8080/portal/supervise/complain/progress/detail\&quot;,\&quot;captcha\&quot;:\&quot;${CAPTCHA}\&quot;,\&quot;code\&quot;:\&quot;3BP52J\&quot;}&quot;;
+
+Jedis jedis = new Jedis(host, port);
+if(StringUtils.isNotBlank(password)){
+    jedis.auth(password);
+  }
+jedis.select(index);    //选择redis db
+jedis.set(key, value);    //插入key, value
+
+
+token = jedis.get(key);    //获取key的值
+vars.put(&quot;COMPLAIN_PROGRESS_CAPTCHA_PREFIX_zxx19950128&quot;,CAPTCHA);    //将key的值保存为变量
+//log.info(&quot;token：&quot;+token);</stringProp>
+          <stringProp name="BeanShellSampler.filename"></stringProp>
+          <stringProp name="BeanShellSampler.parameters">COMPLAIN_PROGRESS_CAPTCHA_PREFIX_zxx19950128</stringProp>
+          <boolProp name="BeanShellSampler.resetInterpreter">false</boolProp>
+        </BeanShellSampler>
+        <hashTree/>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="调试取样器" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
