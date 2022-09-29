@@ -54,7 +54,8 @@
 		<message>接口测试报告</message>     
 		<attachments>              
 			<fileset dir="${jmeter.result.html.dir}">
-				<include name="${ReportName}${time}.html"/> 
+				<!--<include name="${ReportName}${time}.html"/> -->
+				<include name="*"/>
 			</fileset>   
 		</attachments>        
 		</mail> 
