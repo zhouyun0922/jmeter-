@@ -48,7 +48,7 @@
     <!-- 发送邮件 -->
      <!-- 发送邮件功能暂未成功使用 -->
 	<target name="sendEmail">    
-		<mail mailhost="smtp.qq.com" mailport="587" messagemimetype="text/html" user="835341066@qq.com" password="trhbbsamlayvbcca" subject="${ReportName}${time}"/> 
+		<mail mailhost="smtp.qq.com" mailport="587" messagemimetype="text/html" user="835341066@qq.com" password="trhbbsamlayvbcca" subject="${ReportName}${time}"> 
 		<from address="${mail_from}"/> 
 		<to address="${mail_to}"/> 
 		<message>接口测试报告</message>     
