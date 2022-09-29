@@ -53,9 +53,9 @@
 		<to address="${mail_to}"/> 
 		<message>接口测试报告</message>     
 		<attachments>              
-			<fileset dir="/program/jenkins/workspace/jmeter接口自动化测试/apache-jmeter-5.1.1/bin">
+			<fileset dir="${jmeter.result.html.dir}">
 				<!--<include name="${ReportName}${time}.html"/> -->
-				<include name="jmeter_report"/>
+				<include name="*"/>
 			</fileset>   
 		</attachments>        
 		</mail> 
