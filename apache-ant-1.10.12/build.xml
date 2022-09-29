@@ -27,7 +27,7 @@
 		<antcall target="sendEmail"/>
 	</target>
 	<target name="test">
-		<taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask -n -t"/>
+		<taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask"/>
 		<jmeter jmeterhome="${jmeter.home}" resultlog="${jmeter.result.jtl.dir}/${ReportName}${time}.jtl">
 		<!-- 声明要运行的脚本，“*.jmx”是指包含此目录下的所有jmeter脚本 -->
 			<testplans dir="/program/jenkins/workspace/jmeter接口自动化测试/apache-jmeter-5.1.1/bin" includes="虚拟训练系统.jmx"/>
