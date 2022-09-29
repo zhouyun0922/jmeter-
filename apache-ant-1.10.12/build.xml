@@ -23,11 +23,11 @@
 	<!-- <property name="ComputerName" value="gxx"/> -->
 	<target name="all">
 		<antcall target="test"/>
-		<antcall target="report"/>
+		
 		<antcall target="sendEmail"/>
 	</target>
 	<target name="test">
-		<taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask"/>
+		<taskdef name="jmeter" classname="org.programmerplanet.ant.taskdefs.jmeter.JMeterTask -n -t"/>
 		<jmeter jmeterhome="${jmeter.home}" resultlog="${jmeter.result.jtl.dir}/${ReportName}${time}.jtl">
 		<!-- 声明要运行的脚本，“*.jmx”是指包含此目录下的所有jmeter脚本 -->
 			<testplans dir="/program/jenkins/workspace/jmeter接口自动化测试/apache-jmeter-5.1.1/bin" includes="虚拟训练系统.jmx"/>
@@ -48,7 +48,7 @@
     <!-- 发送邮件 -->
      <!-- 发送邮件功能暂未成功使用 -->
 	<target name="sendEmail">    
-		<mail mailhost="smtp.qq.com" mailport="587" messagemimetype="text/html" user="835341066@qq.com" password="trhbbsamlayvbcca" subject="${ReportName}${time}"> 
+		<mail mailhost="smtp.qq.com" mailport="587" messagemimetype="text/html" user="835341066@qq.com" password="trhbbsamlayvbcca" subject="${ReportName}${time}"/> 
 		<from address="${mail_from}"/> 
 		<to address="${mail_to}"/> 
 		<message>接口测试报告</message>     

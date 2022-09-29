@@ -57,7 +57,7 @@
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV 数据文件设置" enabled="true">
         <stringProp name="delimiter">,</stringProp>
         <stringProp name="fileEncoding">UTF-8</stringProp>
-        <stringProp name="filename">E:\软件工具\apache-jmeter-5.1.1\apache-jmeter-5.1.1\csvtest.dat</stringProp>
+        <stringProp name="filename">/program/jenkins/workspace/jmeter接口自动化测试/apache-jmeter-5.1.1/csvtest.dat</stringProp>
         <boolProp name="ignoreFirstLine">false</boolProp>
         <boolProp name="quotedData">false</boolProp>
         <boolProp name="recycle">true</boolProp>
