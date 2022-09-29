@@ -23,7 +23,7 @@
 	<!-- <property name="ComputerName" value="gxx"/> -->
 	<target name="all">
 		<antcall target="test"/>
-		
+		<antcall target="report"/>
 		<antcall target="sendEmail"/>
 	</target>
 	<target name="test">
